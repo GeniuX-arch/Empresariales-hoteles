@@ -1,4 +1,4 @@
-import { Home } from './componentes/home';
+import { Home } from './views/home';
 import Hotel from './views/Hotel'
 import Hoteles from './views/Hoteles'
 import Perfil from './views/Perfil'
