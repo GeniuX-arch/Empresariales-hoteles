@@ -1,6 +1,7 @@
 import { Home } from './componentes/home';
 import Hotel from './views/Hotel'
 import Hoteles from './views/Hoteles'
+import Perfil from './views/Perfil'
 import { Register } from './views/Register';
 import { Restaurants } from './componentes/restaurants';
 import { Login } from './views/Login';
@@ -17,8 +18,8 @@ export const App = () => {
     return(
         <>
             <Routes>
-                <Route path="/hoteles" element={<Hoteles />}>
-                </Route>
+                <Route path="/perfil" element={<Perfil />}></Route>
+                <Route path="/hoteles" element={<Hoteles />}></Route>
                 <Route path="/" element={<Home />}>
                 </Route>
                 <Route path='/iniciar-sesion' element={<Login />}>

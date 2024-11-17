@@ -75,6 +75,9 @@ export const Navegation = () => {
           <li>
             <Link className="text-gray-100 hover:text-blue-600 font-semibold" to="/contacto">Contacto</Link>
           </li>
+          <li>
+            <Link className="text-gray-100 hover:text-blue-600 font-semibold" to="/perfil">perfil</Link>
+          </li>
           {bandera ? loginActive() : login()}
           <li>
             <Link className="text-gray-100 hover:text-blue-600" to="#">
