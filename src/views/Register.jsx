@@ -35,8 +35,8 @@ export const Register = () => {
 
     return (
         <>
-            <div className="relative w-full h-screen bg-cover bg-center bg-no-repeat bg-[url('')]">
-                <div className="flex justify-center items-center h-screen w-full ">
+            <div className="relative w-full h-screen bg-cover bg-center bg-no-repeat bg-[url('https://www.atrapalo.com.co/hoteles/picture/l/6756/0/1/299984022.jpg')]">
+                <div className="flex justify-center items-center h-screen w-full  bg-opacity-50 backdrop-blur-lg">
                     <form id="" className="flex flex-col p-12 gap-5 border rounded-xl w-1/2 bg-white">
                         <h1 className="text-2xl font-bold text-center"> Registro de usuarios</h1>
                         <div>

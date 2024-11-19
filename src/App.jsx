@@ -12,12 +12,23 @@ import { Preferences } from './componentes/preferences';
 import { Contacto } from './componentes/contact';
 import { MoreInfo } from './componentes/restInfo';
 import "./App.css"
+import CrearHotel from './views/CRUDs/CrearHoteles';
+import Usuarios from './views/CRUDs/Usuarios';
+import HotelesAdmin from './views/CRUDs/HotelesAdmin';
+import Admin from './views/CRUDs/Admin';
+import CrearUsuario from './views/CRUDs/CrearUsuario';
 
 export const App = () => {
 
     return(
         <>
             <Routes>
+                <Route path="/admin" element={<Admin />}></Route>
+                <Route path="/admin-hotel-crear" element={<CrearHotel />}></Route>
+                <Route path="/admin-hotel" element={<HotelesAdmin />}></Route>
+                <Route path="/admin-usuario-crear" element={<CrearUsuario />}></Route>
+                <Route path="/admin-usuario" element={<Usuarios />}></Route>
+
                 <Route path="/perfil" element={<Perfil />}></Route>
                 <Route path="/hoteles" element={<Hoteles />}></Route>
                 <Route path="/" element={<Home />}>

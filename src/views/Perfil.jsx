@@ -42,7 +42,7 @@ export default function Perfil() {
           <div className="m-6 w-full justify-evenly flex flex-row items-center ">
             <div>
               <img
-                src="https://via.placeholder.com/100"
+                src="https://weremote.net/wp-content/uploads/2022/08/mujer-sonriente-apunta-arriba.jpg"
                 alt="Avatar"
                 className="rounded-full w-32 h-32 object-cover mb-4"
               />

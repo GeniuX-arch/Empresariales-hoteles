@@ -12,7 +12,7 @@ export default function Hotel() {
       <div className="flex flex-col w-full md:w-1/3 items-center p-6 bg-white shadow-lg rounded-lg">
         <div className="w-full">
           <img
-            src="https://source.unsplash.com/featured/?hotel"
+            src="https://media-cdn.tripadvisor.com/media/photo-s/16/34/f2/0c/punta-diamante-business.jpg"
             alt="Imagen del Hotel Ritoque"
             className="w-full h-48 object-cover rounded-lg"
           />
