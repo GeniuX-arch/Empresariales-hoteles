@@ -1,7 +1,12 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Admin = () => {
+      const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("usuario");  // Or any specific item key used for user data
+    navigate("/iniciar-sesion")
+  };
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-800">
       {/* Header */}
@@ -20,6 +25,12 @@ const Admin = () => {
           >
             HOTELES
           </Link>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-400 text-white py-1 px-2 rounded"
+          >
+            Cerrar sesión
+        </button>
         </nav>
         <div className="w-8 h-8 bg-white rounded-full"></div>
       </header>

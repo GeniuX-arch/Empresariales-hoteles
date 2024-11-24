@@ -24,9 +24,11 @@ export const App = () => {
         <>
             <Routes>
                 <Route path="/admin" element={<Admin />}></Route>
-                <Route path="/admin-hotel-crear" element={<CrearHotel />}></Route>
+                <Route path="/hotel-crear" element={<CrearHotel />}></Route>
+                <Route path="/hotel-crear/:id" element={<CrearHotel />}></Route>
                 <Route path="/admin-hotel" element={<HotelesAdmin />}></Route>
-                <Route path="/admin-usuario-crear" element={<CrearUsuario />}></Route>
+                <Route path="/usuario-crear" element={<CrearUsuario />}></Route>
+                <Route path="/usuario-crear/:id" element={<CrearUsuario />}></Route>
                 <Route path="/admin-usuario" element={<Usuarios />}></Route>
 
                 <Route path="/perfil" element={<Perfil />}></Route>
@@ -36,7 +38,7 @@ export const App = () => {
                 <Route path='/iniciar-sesion' element={<Login />}>
                 </Route>
 
-                <Route path='/hotel' element={<Hotel />}>
+                <Route path='/hotel/:id' element={<Hotel />}>
                 </Route>
                 <Route path='/registrarse' element={<Register />}> 
                 </Route>

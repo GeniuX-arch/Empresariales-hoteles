@@ -1,15 +1,96 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const CrearHotel = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    id: "",
+    nombre: "",
+    descripcion: "",
+    direccion: "",
+    urlImagen: "",
+    puntaje: ""
+  });
+  const host = "https://backend-empresariales.onrender.com";
+
+  useEffect(() => {
+    const fetchHotelData = async () => {
+      if (id) {
+        try {
+          setIsLoading(true);
+          const response = await axios.get(host+`/api/hotel/${id}`);
+          const data = response.data;
+          setFormData({
+            id:data.id,
+            nombre: data.nombre,
+            descripcion: data.descripcion,
+            direccion: data.direccion,
+            urlImagen: data.urlImagen,
+            puntaje: data.puntaje
+          });
+        } catch (error) {
+          console.error('Error al cargar el hotel:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchHotelData();
+  }, [id]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const url = id ? host+`/api/hotel/editar` : host+'/api/hotel/crear';
+      const method = id ? 'PUT' : 'POST';
+      console.log(formData);
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error('Error al guardar el hotel');
+
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 py-8">
-      {/* Contenedor del formulario */}
       <div className="bg-white rounded-lg shadow-md w-full max-w-md p-6">
         <h2 className="text-center text-2xl font-semibold text-gray-800 mb-6">
-          Crear Hotel
+          {id ? "Editar Hotel" : "Crear Hotel"}
         </h2>
-        <form id="create-hotel-form" className="space-y-4">
-          {/* Campo Nombre */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="hotel-name"
@@ -20,14 +101,14 @@ const CrearHotel = () => {
             <input
               type="text"
               id="hotel-name"
-              name="name"
+              name="nombre" // Cambiado para coincidir con el estado
+              value={formData.nombre}
+              onChange={handleInputChange}
               placeholder="Nombre del hotel"
               required
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
-          {/* Campo Descripción */}
           <div>
             <label
               htmlFor="hotel-description"
@@ -37,15 +118,15 @@ const CrearHotel = () => {
             </label>
             <textarea
               id="hotel-description"
-              name="description"
+              name="descripcion" // Cambiado para coincidir con el estado
+              value={formData.descripcion}
+              onChange={handleInputChange}
               placeholder="Descripción del hotel"
               rows="3"
               required
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             ></textarea>
           </div>
-
-          {/* Campo Dirección */}
           <div>
             <label
               htmlFor="hotel-address"
@@ -56,14 +137,14 @@ const CrearHotel = () => {
             <input
               type="text"
               id="hotel-address"
-              name="address"
+              name="direccion" // Cambiado para coincidir con el estado
+              value={formData.direccion}
+              onChange={handleInputChange}
               placeholder="Dirección del hotel"
               required
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
-          {/* Campo URL de Imagen */}
           <div>
             <label
               htmlFor="hotel-url"
@@ -74,14 +155,14 @@ const CrearHotel = () => {
             <input
               type="url"
               id="hotel-url"
-              name="url"
+              name="urlImagen" // Cambiado para coincidir con el estado
+              value={formData.urlImagen}
+              onChange={handleInputChange}
               placeholder="URL de la imagen del hotel"
               required
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
-          {/* Campo Puntaje */}
           <div>
             <label
               htmlFor="hotel-rating"
@@ -92,7 +173,9 @@ const CrearHotel = () => {
             <input
               type="number"
               id="hotel-rating"
-              name="rating"
+              name="puntaje" // Cambiado para coincidir con el estado
+              value={formData.puntaje}
+              onChange={handleInputChange}
               min="0"
               max="5"
               step="0.1"
@@ -101,13 +184,12 @@ const CrearHotel = () => {
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
-          {/* Botón Guardar */}
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white font-medium py-2 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            disabled={isLoading}
+            className="w-full bg-indigo-600 text-white font-medium py-2 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-indigo-300"
           >
-            Guardar Hotel
+            {isLoading ? "Guardando..." : (id ? "Actualizar Hotel" : "Guardar Hotel")}
           </button>
         </form>
       </div>

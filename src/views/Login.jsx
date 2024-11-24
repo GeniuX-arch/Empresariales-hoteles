@@ -1,98 +1,149 @@
 import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 export const Login = () => {
+    const navigate = useNavigate();
 
-    let enrutamiento = useNavigate ();
-    let [ bandera, setBandera ] = useState(false);
-    const [ inputCorreo, setInputCorreo ] = useState("");
-    const [ inputContra, setInputContra ] = useState("");
-    const url = "http://localhost:8080/login";
+    // Estados para gestionar el formulario
+    const [inputCorreo, setInputCorreo] = useState("");
+    const [inputContra, setInputContra] = useState("");
+    const [tipoUsuario, setTipoUsuario] = useState("");
+    const [errorMensaje, setErrorMensaje] = useState("");
 
-    const datosSesion = {
-        correo: inputCorreo,
-        contra: inputContra
-    }
+    const url = "https://backend-empresariales.onrender.com/login";
 
-    async function envioSesion() {
-        console.log(datosSesion);
+    // Manejar los cambios en los inputs
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setErrorMensaje(""); // Restablecer el mensaje de error al cambiar un input
+
+        if (id === "correo") setInputCorreo(value);
+        if (id === "password") setInputContra(value);
+    };
+
+    const handleSelectChange = (e) => setTipoUsuario(e.target.value);
+
+    // Validar el formulario antes de enviarlo
+    const validarFormulario = () => {
+        if (!inputCorreo || !inputContra || !tipoUsuario) {
+            setErrorMensaje("Por favor, completa todos los campos.");
+            return false;
+        }
+        return true;
+    };
+
+    // Manejar el envío del formulario
+    const envioSesion = async (e) => {
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+
+        if (!validarFormulario()) return;
+
+        const datosSesion = {
+            email: inputCorreo,
+            password: inputContra,
+            tipoUsuario: tipoUsuario
+        };
+        console.log(datosSesion)
+
         try {
-            const respuesta = await fetch(url, {
-                method: 'POST',
+            const respuesta = await axios.post(url, datosSesion, {
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(datosSesion)
+                }
             });
 
-            const datos = await respuesta.json();
-
-            console.log(datos);
-            
-            if(respuesta.ok) {
-                //SE GUARDA EL OBJETO EN EL LOCAL STORAGE
-                localStorage.setItem('usuario', JSON.stringify(datos));
-                enrutamiento("/");
-            }else {
-                setBandera(true);
-            }
-
+            const datos = respuesta.data;
+            localStorage.setItem("usuario", JSON.stringify(datos));
+            if(tipoUsuario=='Administrador'){
+                navigate("/admin"); // Redirigir al usuario
+            }else{
+            navigate("/"); // Redirigir al usuario
+                }
         } catch (error) {
-            console.log(error);
-            setBandera(true);
+            console.error("Error en el inicio de sesión:", error);
+            if (error.response?.status === 401) {
+                setErrorMensaje("El correo o la contraseña son incorrectos.");
+            } else if (error.response?.status === 401) {
+                setErrorMensaje("El correo o la contraseña son incorrectos."); }
+            else{
+            setErrorMensaje("Hubo un problema con el servidor. Intenta de nuevo más tarde.");
+            }
         }
-    } const handleInputChange = (e) => {
-        setBandera(false); // Restablecer la bandera cuando el usuario comienza a corregir la información
-        //datosSesion[e.target.id] = e.target.value;
-        if(e.target.id == "correo") {
-            setInputCorreo(e.target.value);
-        }else {
-            setInputContra(e.target.value);
-        }
-    }
+    };
 
-    return(
-        <>
-            <section className="flex flex-row w-full justify-between">
-                <div className="flex flex-row justify-center items-center w-2/3 ">
-                        <form action="" className="flex flex-col gap-5 border w-2/3 p-10 rounded-xl shadow-md shadow-gray">
-                            <h2 className="text-xl font-bold text-center">Login</h2>
-                            <div>
-                                <label htmlFor="correo" className="">Correo Electrónico:</label>
-                                <input type="email" id="correo" 
-                                className="w-full p-3 border-2 border-blue-500  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
-                                placeholder="Ingresa tu correo electronico"
-                                onChange={handleInputChange} value={inputCorreo}/>
-                            </div>
-                            <div>
-                                <label htmlFor="contra" className="">Contraseña:</label>
-                                <input
-                                    type="password"
-                                    id="contra"
-                                    className="w-full p-3 border-2 border-blue-500  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
-                                    onChange={handleInputChange}
-                                    value={inputContra}
-                                    placeholder="Ingresa tu contraseña"
-                                />
-                                </div>
-                                { (bandera)? <small>Error, el Correo o la Contraseña son incorrectos.</small>: <small></small> }
+    return (
+        <section className="flex flex-row w-full justify-between">
+            <div className="flex flex-row justify-center items-center w-2/3">
+                <form className="flex flex-col gap-5 border w-2/3 p-10 rounded-xl shadow-md shadow-gray" onSubmit={envioSesion}>
+                    <h2 className="text-xl font-bold text-center">Login</h2>
 
-                                <button 
-                                className="bg-blue-700 hover:bg-blue-800 p-2 text-white rounded-lg" onClick={(e) => {
-                                e.preventDefault();
-                                //console.log(datosSesion); 
-                                envioSesion();
-
-                                }}>Iniciar Sesión</button>
-
-
-                            <p className="text-center">¿No tienes cuenta? - <Link className="text-blue-700 font-bold underline" to = "/registrarse"> registrate ahora</Link></p>
-                        </form>
+                    <div>
+                        <label htmlFor="correo">Correo Electrónico:</label>
+                        <input
+                            type="email"
+                            id="correo"
+                            className="w-full p-3 border-2 border-blue-500 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
+                            placeholder="Ingresa tu correo electrónico"
+                            value={inputCorreo}
+                            onChange={handleInputChange}
+                        />
                     </div>
-                <div className="h-screen">
-                    <img src="https://m.media-amazon.com/images/I/71m9q7HlMOL._AC_SL1500_.jpg" className="h-screen rounded-l-full 1/3" alt="comida-restaurante"/>
-                </div>
-            </section>
-        </>
+
+                    <div>
+                        <label htmlFor="password">Contraseña:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="w-full p-3 border-2 border-blue-500 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
+                            placeholder="Ingresa tu contraseña"
+                            value={inputContra}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="tipoUsuario">Selecciona el rol:</label>
+                        <select
+                            id="tipoUsuario"
+                            className="w-full p-3 border-2 border-blue-500 rounded-lg"
+                            value={tipoUsuario}
+                            onChange={handleSelectChange}
+                        >
+                            <option value="">Selecciona el rol</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Usuario">Usuario</option>
+                            <option value="Hotel">Hotel</option>
+                        </select>
+                    </div>
+
+                    {errorMensaje && (
+                        <small className="text-red-600">{errorMensaje}</small>
+                    )}
+
+                    <button
+                        type="submit"
+                        className="bg-blue-700 hover:bg-blue-800 p-2 text-white rounded-lg"
+                    >
+                        Iniciar Sesión
+                    </button>
+
+                    <p className="text-center">
+                        ¿No tienes cuenta? -{" "}
+                        <Link className="text-blue-700 font-bold underline" to="/registrarse">
+                            Regístrate ahora
+                        </Link>
+                    </p>
+                </form>
+            </div>
+
+            <div className="h-screen">
+                <img
+                    src="https://m.media-amazon.com/images/I/71m9q7HlMOL._AC_SL1500_.jpg"
+                    className="h-screen rounded-l-full"
+                    alt="comida-restaurante"
+                />
+            </div>
+        </section>
     );
-}
+};

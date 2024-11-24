@@ -21,12 +21,29 @@ export default function Perfil() {
     descripcion: 'Un hotel con vistas espectaculares al mar.',
     rol: 'hotel', // or 'user'
   };
+  
 
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState(localStorage.getItem('usuario'));
+  const [resena, setResena] = useState(userProfile);
+
+  console.log (localStorage.getItem('usuario'))
+  const host = "https://backend-empresariales.onrender.com/";
 
   useEffect(() => {
-    // Simulating loading the profile (in this case, hardcoded)
-    setProfile(userProfile); // or setProfile(hotelProfile) based on your needs
+
+    const fetchUser =async()=>{
+      try{
+        const id=JSON.parse(localStorage.getItem('usuario'))?.id
+        console.log(id);
+        
+        const user = await axios.get(host+'/api/resena/'+id)
+        setResena(user); // or setProfile(hotelProfile) based on your needs
+        }catch{
+          console.error("error no se encontró el usuario")
+        }
+    }
+    fetchUser()
+
   }, []);
 
   if (!profile) {
@@ -57,9 +74,7 @@ export default function Perfil() {
               <p className="text-gray-500">Mi cuenta</p>
               <h1 className="text-2xl font-bold text-gray-800">{profile.nombre}</h1>
               <p className="text-gray-600">Correo: {profile.correo}</p>
-              <p className="text-gray-600">País: {profile.pais}</p>
-              <p className="text-gray-600">Edad: {profile.edad}</p>
-              <p className="text-gray-600 mb-4">Descripción: {profile.descripcion}</p>
+              <p className="text-gray-600 mb-4">Descripción: {profile.tipoUsuario}</p>
             </div>
           </div>
 

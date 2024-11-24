@@ -1,36 +1,78 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+
+import { Loader2 } from "lucide-react";
+import axios from "axios";
 
 const HotelesAdmin = () => {
-  const hoteles = [
-    {
-      id: 1,
-      nombre: "Hotel Luna",
-      descripcion: "Un hotel con vistas espectaculares.",
-      direccion: "Calle Luna, 123",
-      urlImagen: "https://example.com/hotel-luna.jpg",
-      puntaje: 4.8,
-    },
-    {
-      id: 2,
-      nombre: "Hotel Sol",
-      descripcion: "Perfecto para vacaciones en familia.",
-      direccion: "Avenida Sol, 456",
-      urlImagen: "https://example.com/hotel-sol.jpg",
-      puntaje: 4.5,
-    },
-    // Agrega más hoteles aquí
-  ];
+    const navigate = useNavigate();
+    const host = "https://backend-empresariales.onrender.com/";
+    const [hoteles, setHoteles] = useState([]);
+    const [isLoading, setIsLoading] = useState([]);
+    useEffect(() => {
+    const fetchDatosHoteles = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`${host}api/hotel/todos`);
+        console.log(response.data);
+        setHoteles(response.data);
+      } catch (error) {
+        console.error("Error fetching hoteles:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDatosHoteles();
+  }, []);
 
   const handleEdit = (id) => {
     console.log("Editar hotel con ID:", id);
+    navigate('/hotel-crear/'+id)
     // Aquí se puede agregar la lógica de edición
   };
 
-  const handleDelete = (id) => {
-    console.log("Eliminar hotel con ID:", id);
-    // Aquí se puede agregar la lógica de eliminación
+  const handleLogout = () => {
+    localStorage.removeItem("usuario");  // Or any specific item key used for user data
+    navigate("/iniciar-sesion")
   };
+
+  const handleDelete = async (hotelId) => {
+    const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este hotel?");
+    if (confirmDelete) {
+      try {
+        setIsLoading(true);
+        // Send DELETE request to the backend
+        const response = await axios.delete(`${host}/api/hotel/eliminar/${hotelId}`);
+        
+        if (response.status === 200) {
+          alert("Hotel eliminado exitosamente.");
+          // Here, you can update the list of hotels to remove the deleted one from the UI
+          // For example, you could use a function passed via props to remove the hotel
+        } else {
+          alert("Hubo un error al eliminar el hotel.");
+        }
+      } catch (error) {
+        console.error("Error al eliminar el hotel:", error);
+        alert("Hubo un error al eliminar el hotel.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+            <p className="text-gray-600">Cargando hoteles...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -44,6 +86,12 @@ const HotelesAdmin = () => {
           <Link to="/admin-hotel" className="font-bold hover:underline">
             HOTELES
           </Link>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-400 text-white py-1 px-2 rounded"
+          >
+            Cerrar sesión
+        </button>
         </nav>
         <div className="w-6 h-6 bg-white rounded-full"></div>
       </header>
@@ -51,7 +99,7 @@ const HotelesAdmin = () => {
       <main className="flex-grow text-center p-6">
         <h1 className="text-2xl font-bold mb-6">HOTELES</h1>
         <div className="max-w-5xl mx-auto">
-          <Link to="/admin-hotel-crear" className="bg-purple-500 text-white py-2 px-4 rounded mb-4 hover:bg-purple-400">
+          <Link to="/hotel-crear" className="bg-purple-500 text-white py-2 px-4 rounded mb-4 hover:bg-purple-400">
             Agregar Hotel
           </Link>
           <table className="w-full border-collapse bg-gray-100 shadow-lg">
