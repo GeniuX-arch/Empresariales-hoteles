@@ -17,6 +17,7 @@ import Usuarios from './views/CRUDs/Usuarios';
 import HotelesAdmin from './views/CRUDs/HotelesAdmin';
 import Admin from './views/CRUDs/Admin';
 import CrearUsuario from './views/CRUDs/CrearUsuario';
+import Propietario from './views/Propietario';
 
 export const App = () => {
 
@@ -37,6 +38,8 @@ export const App = () => {
                 </Route>
                 <Route path='/iniciar-sesion' element={<Login />}>
                 </Route>
+
+                <Route path="/propietario" element={<Propietario />}></Route>
 
                 <Route path='/hotel/:id' element={<Hotel />}>
                 </Route>

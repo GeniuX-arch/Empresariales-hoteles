@@ -57,9 +57,11 @@ export const Login = () => {
             localStorage.setItem("usuario", JSON.stringify(datos));
             if(tipoUsuario=='Administrador'){
                 navigate("/admin"); // Redirigir al usuario
+            }else if(tipoUsuario=='Propiatario'){
+                navigate("/propietario"); // Redirigir al usuario
             }else{
-            navigate("/"); // Redirigir al usuario
-                }
+                navigate("/"); // Redirigir al usuario
+            }
         } catch (error) {
             console.error("Error en el inicio de sesión:", error);
             if (error.response?.status === 401) {
