@@ -142,9 +142,9 @@ const CrearUsuario = () => {
           required
           className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
         >
-          <option value="admin">Admin</option>
-          <option value="editor">Usuario</option>
-          <option value="viewer">Propietario</option>
+          <option value="administrador">Admin</option>
+          <option value="Usuario">Usuario</option>
+          <option value="Propietario">Propietario</option>
         </select>
 
         <button

@@ -1,45 +1,72 @@
-import "../styles/contact.css";
-import { Navegation } from "../componentes/navigator"
+import { Navegation } from "../componentes/navigator";
 import { Footer } from "../footer/footer";
 
 export const Contacto = () => {
     return (
-    <div>
-        <Navegation/>
-        <div className="contact-container">
-            
-            <div className="contact-image-container">
-                {/* Imagen de fondo y el cuadro "Contactenos" */}
-                <h1>CONTACTENOS<br/>
-                <h5>Sugerencias, dudas incluso quejas,<br/> <strong>¡¡contactanos ahora mismo!!</strong></h5></h1>
-                
+        <div className="flex flex-col min-h-screen">
+            <Navegation />
+            <div className="flex-grow bg-gray-100">
+                {/* Imagen de fondo con encabezado */}
+                <div
+                    className="relative h-64 bg-cover bg-center"
+                    style={{ backgroundImage: "url('https://www.kayak.com.co/news/wp-content/uploads/sites/180/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg')" }}
+                >
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-center">
+                        <div className="text-white px-6">
+                            <h1 className="text-4xl font-bold">CONTÁCTENOS</h1>
+                            <p className="mt-2 text-lg">
+                                Sugerencias, dudas incluso quejas, <br />
+                                <strong>¡Contáctanos ahora mismo!</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {/* Tarjetas de contacto */}
+                <div className="container mx-auto p-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {/* Héctor Díaz */}
+                        <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+                            <h2 className="text-xl font-semibold text-gray-800">Héctor Díaz</h2>
+                            <p className="text-gray-600 mt-2">
+                                Estudiante de Tecnología en desarrollo de sistemas informáticos en las UTS.
+                            </p>
+                            <p className="mt-4 text-gray-500">
+                                Correo:{" "}
+                                <a href="mailto:hidiaz@uts.edu.co" className="text-blue-500 underline">
+                                    hidiaz@uts.edu.co
+                                </a>
+                            </p>
+                        </div>
+                        {/* Pavel Gélvez */}
+                        <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+                            <h2 className="text-xl font-semibold text-gray-800">Pavel Gélvez</h2>
+                            <p className="text-gray-600 mt-2">
+                                Estudiante de Tecnología en desarrollo de sistemas informáticos en las UTS.
+                            </p>
+                            <p className="mt-4 text-gray-500">
+                                Correo:{" "}
+                                <a href="mailto:pagelvez@uts.edu.co" className="text-blue-500 underline">
+                                    pagelvez@uts.edu.co
+                                </a>
+                            </p>
+                        </div>
+                        {/* Jhoan Jiménez */}
+                        <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+                            <h2 className="text-xl font-semibold text-gray-800">Jhoan Jiménez</h2>
+                            <p className="text-gray-600 mt-2">
+                                Estudiante de Tecnología en desarrollo de sistemas informáticos en las UTS.
+                            </p>
+                            <p className="mt-4 text-gray-500">
+                                Correo:{" "}
+                                <a href="mailto:jhoansjimenez@uts.edu.co" className="text-blue-500 underline">
+                                    jhoansjimenez@uts.edu.co
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="contact-info-container">
-                {/* Contenido de información de contacto */}
-                <h1>Hector Diaz</h1>
-                <br/>
-                <br/>
-                <p>Estudiante de Tecnologia en desarrollo de sistemas informaticos en las UTS.
-                </p>
-                <p>Correo: hidiaz@uts.edu.co</p>
-                <p></p>
-
-                <br/>
-                <br/>
-                <hr className="division"/>
-                <br/>
-                <br></br>
-
-                <h1>Pavel Gelvez</h1>
-                <br/>
-                <br/>
-                <p>Estudiante de Tecnologia en desarrollo de sistemas informaticos en las UTS.
-                </p>
-                <p>Correo: pagelvez@uts.edu.co</p>
-            </div>
+            <Footer />
         </div>
-        <Footer/>
-    </div>
     );
-
-}
+};

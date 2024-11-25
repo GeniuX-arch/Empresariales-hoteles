@@ -85,7 +85,7 @@ export const Login = () => {
                         <input
                             type="email"
                             id="correo"
-                            className="w-full p-3 border-2 border-blue-500 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
+                            className="w-full p-3 border-2  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
                             placeholder="Ingresa tu correo electrónico"
                             value={inputCorreo}
                             onChange={handleInputChange}
@@ -97,7 +97,7 @@ export const Login = () => {
                         <input
                             type="password"
                             id="password"
-                            className="w-full p-3 border-2 border-blue-500 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
+                            className="w-full p-3 border-2  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent placeholder-gray-400"
                             placeholder="Ingresa tu contraseña"
                             value={inputContra}
                             onChange={handleInputChange}
@@ -108,7 +108,7 @@ export const Login = () => {
                         <label htmlFor="tipoUsuario">Selecciona el rol:</label>
                         <select
                             id="tipoUsuario"
-                            className="w-full p-3 border-2 border-blue-500 rounded-lg"
+                            className="w-full p-3 border-2  rounded-lg"
                             value={tipoUsuario}
                             onChange={handleSelectChange}
                         >

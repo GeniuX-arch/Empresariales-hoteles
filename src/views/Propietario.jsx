@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CartHoteles from '../componentes/CartHoteles';
 import Lista from '../componentes/Lista';
 import { Navegation } from '../componentes/navigator';
+import { Link } from 'react-router-dom';
 import { Grafica } from '../componentes/grafica';
 import { Estrellas } from '../componentes/Estrellas';
 
@@ -27,6 +28,31 @@ export default function Perfil() {
 
   const [profile, setProfile] = useState(localStorage.getItem('usuario'));
   const [resena, setResena] = useState(userProfile);
+
+  const handleDelete = async (hotelId) => {
+    const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este hotel?");
+    if (confirmDelete) {
+      try {
+        setIsLoading(true);
+        // Send DELETE request to the backend
+        const response = await axios.delete(`${host}/api/hotel/eliminar/${hotelId}`);
+        
+        if (response.status === 200) {
+          alert("Hotel eliminado exitosamente.");
+          // Here, you can update the list of hotels to remove the deleted one from the UI
+          // For example, you could use a function passed via props to remove the hotel
+        } else {
+          alert("Hubo un error al eliminar el hotel.");
+        }
+      } catch (error) {
+        console.error("Error al eliminar el hotel:", error);
+        alert("Hubo un error al eliminar el hotel.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
 
   console.log (localStorage.getItem('usuario'))
   const host = "https://backend-empresariales.onrender.com/";
@@ -63,6 +89,8 @@ export default function Perfil() {
         <div className='flex lg:flex-row flex-col justify-around'>
                 <div className='flex flex-col items-center'>
                         <div className="mb-6 flex flex-col items-center">
+
+                            <h1 className='text-center text-xl mb-2 font-bold'>Mi hotel</h1>
                             <img
                             src="https://via.placeholder.com/100"
                             alt="Hotel Avatar"
@@ -73,12 +101,14 @@ export default function Perfil() {
                             <p className="text-gray-600">Correo: {profile.correo}</p>
                             <p className="text-gray-600">Ubicación: {profile.ubicacion}</p>
                             <p className="text-gray-600 mb-4">Descripción: {profile.descripcion}</p>
-                            <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mr-2 hover:bg-blue-600">
-                            Editar
-                            </button>
+                            <div className='flex flex-row justify-center'>
+                            <Link to="/hotel-crear/" className="bg-blue-500 text-white py-2 px-4 rounded-lg mr-2 hover:bg-blue-600">
+                                Editar
+                            </Link>
                             <button className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
-                            Eliminar
+                                Eliminar
                             </button>
+                            </div>
                         </div>
                 <div>
                     <Estrellas className="w-max" />

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import NavbarAdmin from "../../componentes/navbarAdmin";
 
 const Admin = () => {
       const navigate = useNavigate();
@@ -10,30 +11,7 @@ const Admin = () => {
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-800">
       {/* Header */}
-      <header className="flex justify-between items-center bg-indigo-500 p-4">
-        <div className="w-12 h-12 bg-white rounded-full"></div>
-        <nav className="flex space-x-4">
-          <Link
-            to="/admin-usuario"
-            className="text-white font-bold hover:text-indigo-200 transition"
-          >
-            USUARIOS
-          </Link>
-          <Link
-            to="/admin-hotel"
-            className="text-white font-bold hover:text-indigo-200 transition"
-          >
-            HOTELES
-          </Link>
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-400 text-white py-1 px-2 rounded"
-          >
-            Cerrar sesión
-        </button>
-        </nav>
-        <div className="w-8 h-8 bg-white rounded-full"></div>
-      </header>
+      <NavbarAdmin />
 
       {/* Main Content */}
       <main className="flex flex-col items-center flex-1 text-center p-6">
