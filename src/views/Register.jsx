@@ -157,7 +157,6 @@ export const Register = () => {
             >
               <option value="Usuario">Usuario</option>
               <option value="Propietario">Hotel</option>
-              <option value="Administrador">Administrador</option>
             </select>
           </div>
 
