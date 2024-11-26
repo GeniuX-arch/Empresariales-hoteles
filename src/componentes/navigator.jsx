@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 
 export const Navegation = () => {
@@ -7,6 +7,7 @@ export const Navegation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null); // Referencia para el menú
 
+  const navigate = useNavigate();
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem('usuario'));
     if (usuario === null) {
@@ -69,6 +70,8 @@ export const Navegation = () => {
                 className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
                 onClick={() => {
                   localStorage.removeItem('usuario');
+                  
+                  navigate("/iniciar-sesion"); // Redirect to login
                   location.reload();
                 }}
               >

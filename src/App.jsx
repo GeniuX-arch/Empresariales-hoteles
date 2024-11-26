@@ -17,7 +17,11 @@ import Usuarios from './views/CRUDs/Usuarios';
 import HotelesAdmin from './views/CRUDs/HotelesAdmin';
 import Admin from './views/CRUDs/Admin';
 import CrearUsuario from './views/CRUDs/CrearUsuario';
+import Reservaciones from './views/CRUDs/Reservaciones';
 import Propietario from './views/Propietario';
+import Resenas from './views/CRUDs/Resenas';
+import CrearResenas from './views/CRUDs/CrearResenas';
+import CrearReserva from './views/CRUDs/CrearReserva';
 
 export const App = () => {
 
@@ -31,6 +35,12 @@ export const App = () => {
                 <Route path="/usuario-crear" element={<CrearUsuario />}></Route>
                 <Route path="/usuario-crear/:id" element={<CrearUsuario />}></Route>
                 <Route path="/admin-usuario" element={<Usuarios />}></Route>
+                <Route path="/reservaciones" element={<Reservaciones />}></Route>
+                <Route path="/resenas" element={<Resenas />}></Route>
+                <Route path="/resena-crear" element={<CrearResenas />}></Route>
+                <Route path="/resena-crear/:id" element={<CrearResenas />}></Route>
+                 <Route path="/reserva-crear" element={<CrearReserva />}></Route>
+                <Route path="/reserva-crear/:id" element={<CrearReserva />}></Route>
 
                 <Route path="/perfil" element={<Perfil />}></Route>
                 <Route path="/hoteles" element={<Hoteles />}></Route>

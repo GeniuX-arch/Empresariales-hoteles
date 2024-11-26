@@ -24,11 +24,23 @@ export default function NavbarAdmin() {
 
         {/* Navigation Links */}
         <nav className="flex space-x-6">
+        <Link
+            to="/resenas"
+            className="text-white font-medium hover:text-indigo-200 transition-transform transform hover:scale-105"
+          >
+            RESEÑAS
+          </Link>
           <Link
             to="/admin-usuario"
             className="text-white font-medium hover:text-indigo-200 transition-transform transform hover:scale-105"
           >
             USUARIOS
+          </Link>
+          <Link
+            to="/reservaciones"
+            className="text-white font-medium hover:text-indigo-200 transition-transform transform hover:scale-105"
+          >
+            RESERVACIONES
           </Link>
           <Link
             to="/admin-hotel"

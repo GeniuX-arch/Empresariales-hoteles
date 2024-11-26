@@ -57,7 +57,7 @@ export const Login = () => {
             localStorage.setItem("usuario", JSON.stringify(datos));
             if(tipoUsuario=='Administrador'){
                 navigate("/admin"); // Redirigir al usuario
-            }else if(tipoUsuario=='Propiatario'){
+            }else if(tipoUsuario=='Propietario'){
                 navigate("/propietario"); // Redirigir al usuario
             }else{
                 navigate("/"); // Redirigir al usuario
@@ -115,7 +115,7 @@ export const Login = () => {
                             <option value="">Selecciona el rol</option>
                             <option value="Administrador">Administrador</option>
                             <option value="Usuario">Usuario</option>
-                            <option value="Hotel">Hotel</option>
+                            <option value="Propietario">Propietario</option>
                         </select>
                     </div>
 

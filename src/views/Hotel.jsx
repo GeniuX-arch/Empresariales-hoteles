@@ -3,6 +3,7 @@ import Lista from '../componentes/Lista';
 import { Navegation } from '../componentes/navigator';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Hotel() {
   const host = "https://backend-empresariales.onrender.com/";
@@ -119,13 +120,13 @@ useEffect(() => {
                 
                 <p className="text-gray-600 mb-6">{datosHotel.descripcion}</p>
                 
-                <div className="space-y-3">
-                  <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <div className=" space-y-3 flex flex-col justify-center">
+                  <Link to="/reserva-crear" className="w-full px-4 py-2 bg-blue-600 text-center  text-white rounded-lg hover:bg-blue-700 transition-colors">
                     Reservar ahora
-                  </button>
-                  <a href="#" className="block text-center text-blue-600 hover:text-blue-800 font-semibold">
-                    Más información
-                  </a>
+                  </Link>
+                  <Link to="/resena-crear" className="block text-center text-blue-600 hover:text-blue-800 font-semibold">
+                    Crear reseña
+                  </Link>
                 </div>
               </div>
             </div>

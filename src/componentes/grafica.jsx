@@ -53,23 +53,23 @@ export const options = {
 };
 
 const labels = [
-  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
-  'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
 ];
+
 
 export const data = {
   labels,
   datasets: [
     {
       label: 'Reservas',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 200 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 5 })),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
       yAxisID: 'y',
     },
     {
       label: 'Resenas',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 200 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 5 })),
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
       yAxisID: 'y1',

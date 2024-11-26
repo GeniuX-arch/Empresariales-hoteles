@@ -63,74 +63,75 @@ const HotelesAdmin = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* Header */}
-      <NavbarAdmin />
+   <div className="min-h-screen flex flex-col bg-gray-50">
+  {/* Header */}
+  <NavbarAdmin />
 
-      {/* Main Content */}
-      <main className="flex-1 p-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-semibold text-gray-800">Gestión de Hoteles</h1>
-            <Link
-              to="/hotel-crear"
-              className="bg-purple-600 hover:bg-purple-500 text-white font-medium py-2 px-4 rounded-lg shadow-md transition"
-            >
-              + Agregar Hotel
-            </Link>
-          </div>
-          <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-            <table className="min-w-full border-collapse bg-white">
-              <thead>
-                <tr className="bg-purple-600 text-white">
-                  <th className="py-3 px-6 text-left text-sm font-semibold">ID</th>
-                  <th className="py-3 px-6 text-left text-sm font-semibold">Nombre</th>
-                  <th className="py-3 px-6 text-left text-sm font-semibold">Descripción</th>
-                  <th className="py-3 px-6 text-left text-sm font-semibold">Dirección</th>
-                  <th className="py-3 px-6 text-left text-sm font-semibold">URL Imagen</th>
-                  <th className="py-3 px-6 text-left text-sm font-semibold">Puntaje</th>
-                  <th className="py-3 px-6 text-center text-sm font-semibold">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {hoteles.map((hotel) => (
-                  <tr
-                    key={hotel.id}
-                    className="border-t hover:bg-gray-100 transition"
+  {/* Main Content */}
+  <main className="flex-1 p-8">
+    <div className="max-w-6xl mx-auto">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-semibold text-gray-800">Gestión de Hoteles</h1>
+        <Link
+          to="/hotel-crear"
+          className="bg-purple-600 hover:bg-purple-500 text-white font-medium py-2 px-4 rounded-lg shadow-md transition"
+        >
+          + Agregar Hotel
+        </Link>
+      </div>
+      <div className="bg-white shadow-lg rounded-lg">
+        <table className="w-full border-collapse bg-white">
+          <thead>
+            <tr className="bg-purple-600 text-white">
+              <th className="py-3 px-6 text-left text-sm font-semibold">ID</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Nombre</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Descripción</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Dirección</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">URL Imagen</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Puntaje</th>
+              <th className="py-3 px-6 text-center text-sm font-semibold">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {hoteles.map((hotel) => (
+              <tr
+                key={hotel.id}
+                className="border-t hover:bg-gray-100 transition"
+              >
+                <td className="py-4 px-6 text-sm text-gray-700">{hotel.id}</td>
+                <td className="py-4 px-6 text-sm text-gray-700">{hotel.nombre}</td>
+                <td className="py-4 px-6 text-sm text-gray-700">{hotel.descripcion}</td>
+                <td className="py-4 px-6 text-sm text-gray-700">{hotel.direccion}</td>
+                <td className="py-4 px-6 text-sm text-gray-700">{hotel.urlImagen}</td>
+                <td className="py-4 px-6 text-sm text-gray-700">{hotel.puntaje}</td>
+                <td className="py-4 px-6 text-sm text-center space-x-2 flex flex-row justify-center items-center">
+                  <Link
+                    to={`/hotel-crear/${hotel.id}`}
+                    className="bg-green-500 hover:bg-green-400 text-white py-1 px-3 rounded-lg transition"
                   >
-                    <td className="py-4 px-6 text-sm text-gray-700">{hotel.id}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{hotel.nombre}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{hotel.descripcion}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{hotel.direccion}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{hotel.urlImagen}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{hotel.puntaje}</td>
-                    <td className="py-4 px-6 text-sm text-center space-x-2 flex flex-row justify-center items-center">
-                      <Link
-                        to={`/hotel-crear/${hotel.id}`}
-                        className="bg-green-500 hover:bg-green-400 text-white py-1 px-3 rounded-lg transition"
-                      >
-                        Editar
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(hotel.id)}
-                        className="bg-red-500 hover:bg-red-400 text-white py-1 px-3 rounded-lg transition"
-                      >
-                        Eliminar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white text-center py-4 mt-auto">
-        <p>&copy; 2024 - Trabajo empresariales</p>
-      </footer>
+                    Editar
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(hotel.id)}
+                    className="bg-red-500 hover:bg-red-400 text-white py-1 px-3 rounded-lg transition"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
+  </main>
+
+  {/* Footer */}
+  <footer className="bg-gray-800 text-white text-center py-4 mt-auto">
+    <p>&copy; 2024 - Trabajo empresariales</p>
+  </footer>
+</div>
+
   );
 };
 

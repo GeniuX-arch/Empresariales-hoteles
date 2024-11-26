@@ -1,54 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import CartHoteles from '../componentes/CartHoteles';
-import Lista from '../componentes/Lista';
-import { Navegation } from '../componentes/navigator';
+import React, { useState, useEffect } from "react";
+import CartHoteles from "../componentes/CartHoteles";
+import Lista from "../componentes/Lista";
+import { Navegation } from "../componentes/navigator";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Perfil() {
-  // Simulated profile data (hardcoded JSON)
-  /*
-  const userProfile = {
-    nombre: 'Juan Pérez',
-    correo: 'juan.perez@example.com',
-    pais: 'Colombia',
-    edad: 30,
-    descripcion: 'Me encanta viajar y descubrir nuevos lugares.',
-    rol: 'user', // or 'hotel'
-  };
-
-  const hotelProfile = {
-    nombre: 'Hotel Ritoque',
-    correo: 'contacto@hotelritoque.com',
-    ubicacion: 'Ritoque, Chile',
-    descripcion: 'Un hotel con vistas espectaculares al mar.',
-    rol: 'hotel', // or 'user'
-  };
-  */
-  
-
-  const [profile, setProfile] = useState(JSON.parse(localStorage.getItem('usuario')));
-
-  const [resena, setResena] = useState();
-
-  console.log (localStorage.getItem('usuario'))
-  const host = "https://backend-empresariales.onrender.com/";
+  const [profile, setProfile] = useState(JSON.parse(localStorage.getItem("usuario")));
+  const [resenas, setResenas] = useState([]);
+  const [reservas, setReservas] = useState([]);
+  const host = "https://backend-empresariales.onrender.com";
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userId = profile?.id;
 
-    const fetchUser =async()=>{
-      try{
-        const id=JSON.parse(localStorage.getItem('usuario'))?.id
-        console.log(JSON.parse(localStorage.getItem('usuario')))
-        console.log(id);
-        
-        //const user = await axios.get(host+'/api/resena/'+id)
-        //setResena(user); // or setProfile(hotelProfile) based on your needs
-        }catch{
-          console.error("error no se encontró el usuario")
-        }
+        // Consultar reseñas del usuario
+        const resenaResponse = await axios.get(`${host}/api/resena/todas/usuario/${userId}`);
+        setResenas(resenaResponse.data);
+
+        // Consultar historial de reservas
+        const reservaResponse = await axios.get(`${host}/api/reserva/todas/${userId}`);
+        setReservas(reservaResponse.data);
+      } catch (error) {
+        console.error("Error al cargar datos:", error);
+      }
+    };
+
+    if (profile?.id) {
+      fetchData();
     }
-    fetchUser()
-
-  }, []);
+  }, [profile]);
 
   if (!profile) {
     return <p>Cargando perfil...</p>;
@@ -58,44 +41,66 @@ export default function Perfil() {
     <div className="">
       <Navegation />
       {/* Render User Profile */}
-        <div className="bg-white rounded-lg p-6 shadow-lg">
-          <div className="m-6 w-full justify-evenly flex flex-row items-center ">
-            <div>
-              <img
-                src="https://weremote.net/wp-content/uploads/2022/08/mujer-sonriente-apunta-arriba.jpg"
-                alt="Avatar"
-                className="rounded-full w-32 h-32 object-cover mb-4"
-              />
-              <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mr-2 hover:bg-blue-600">
-                Editar
-              </button>
-              <button className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
-                Eliminar
-              </button>
-            </div>
-            <div className="flex flex-col">
-              <p className="text-gray-500">Mi cuenta</p>
-              <h1 className="text-2xl font-bold text-gray-800">{profile.nombre}</h1>
-              <p className="text-gray-600">Correo: {profile.correo}</p>
-              <p className="text-gray-600 mb-4">Descripción: {profile.tipoUsuario}</p>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <h2 className="text-xl font-bold text-gray-800">Historial de Hoteles</h2>
-            {/* Here you would map through hotel history */}
-            <CartHoteles
-              imagen="https://via.placeholder.com/300"
-              nombre="Hotel Ritoque"
-              descripcion="Un hotel con vistas espectaculares al mar."
-              calificacion="4.5"
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <div className="m-6 w-full justify-evenly flex flex-row items-center border rounded-lg py-4">
+          <div>
+            <img
+              src="https://w7.pngwing.com/pngs/932/836/png-transparent-person-miscellaneous-face-head-thumbnail.png"
+              alt="Avatar"
+              className="rounded-full w-32 h-32 object-cover mb-4"
             />
+            <Link to={"/usuario-crear/"+profile.id} className="bg-blue-500 text-white py-2 px-4 rounded-lg mr-2 hover:bg-blue-600">
+              Editar
+            </Link>
+            <button className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
+              Eliminar
+            </button>
+          </div>
+          <div className="flex flex-col">
+            <p className="text-gray-500">Mi cuenta</p>
+            <h1 className="text-2xl font-bold text-gray-800">{profile.nombre}</h1>
+            <p className="text-gray-600">Correo: {profile.correo}</p>
+            <p className="text-gray-600 mb-4">Rol: {profile.tipoUsuario}</p>
           </div>
         </div>
 
-      {/* Render Hotel Profile */}
-        
+        {/* Historial de Hoteles */}
+        <div className="flex sm:flex-row sm:justify-around flex-col">
+        <div className="mt-6 sm:w-1/3">
+          <h2 className="text-xl font-bold text-gray-800 text-center">Historial de Hoteles</h2>
+          {reservas.length > 0 ? (
+            reservas.map((reserva, index) => (
+              <CartHoteles
+                key={index}
+                imagen={reserva.hotel.urlImagen}
+                nombre={reserva.hotel?.nombre || "Hotel Desconocido"}
+                descripcion={reserva.hotel?.descripcion || "Sin descripción"}
+                calificacion={reserva.hotel?.puntaje || "N/A"}
+              />
+            ))
+          ) : (
+            <p className="text-gray-600">No se encontraron reservas.</p>
+          )}
+        </div>
 
+        {/* Historial de Reseñas */}
+        <div className="mt-6 w-1/3">
+          <h2 className="text-xl font-bold text-gray-800 text-center">Historial de Reseñas</h2>
+          {resenas.length > 0 ? (
+            resenas.map((resena, index) => (
+              <Lista
+                key={index}
+                nombre={resena.usuario?.nombre || "Usuario Anónimo"}
+                text={resena.descripcion}
+                calificacion={resena.puntaje}
+              />
+            ))
+          ) : (
+            <p className="text-gray-600">No se encontraron reseñas.</p>
+          )}
+        </div>
+        </div>
+      </div>
     </div>
   );
 }
