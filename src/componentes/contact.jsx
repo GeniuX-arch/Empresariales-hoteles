@@ -64,26 +64,41 @@ export const Contacto = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="container bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-                        <a href="https://www.canva.com/design/DAGXmWA92MQ/em52NxdxJR6a0wj1_AzWuw/edit?utm_content=DAGXmWA92MQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" className="text-xl font-semibold text-gray-800">Link de la presentación (CANVA)</a>
-                        <hr className="m-5">
-                        <h3 className="font-bold text-gray-800 text-xl">Usuarios y Contraseñas</h3>
-                        <code className="container p-5 bg-white">
-                                "nombre": "Oscar Pérez",
-                                "correo": "oscar.perez@example.com",
-                                "contrasena": "pass1234",
-                                "tipoUsuario": "Administrador"
-                                
-                                "nombre": "Sofía Ramírez",
-                                "correo": "sofia.ramirez@example.com",
-                                "contrasena": "ownerPass998",
-                                "tipoUsuario": "Propietario"
-                                
-                                "nombre": "Carlos Ruiz",
-                                "correo": "carlos.ruiz@example.com",
-                                "contrasena": "securePass123",
-                                "tipoUsuario": "Usuario"
-                        </code>
+                    {/* Usuarios y Contraseñas */}
+                    <div className="mt-8">
+                        <h3 className="font-bold text-gray-800 text-2xl mb-4">Usuarios y Contraseñas</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {/* Oscar Pérez */}
+                            <div className="bg-white rounded-lg shadow-lg p-6">
+                                <h4 className="text-xl font-semibold text-gray-800">Oscar Pérez</h4>
+                                <p className="text-gray-600 mt-2">Correo: oscar.perez@example.com</p>
+                                <p className="text-gray-600 mt-1">Contraseña: pass1234</p>
+                                <p className="text-gray-500 mt-2">Tipo de usuario: Administrador</p>
+                            </div>
+                            {/* Sofía Ramírez */}
+                            <div className="bg-white rounded-lg shadow-lg p-6">
+                                <h4 className="text-xl font-semibold text-gray-800">Sofía Ramírez</h4>
+                                <p className="text-gray-600 mt-2">Correo: sofia.ramirez@example.com</p>
+                                <p className="text-gray-600 mt-1">Contraseña: ownerPass998</p>
+                                <p className="text-gray-500 mt-2">Tipo de usuario: Propietario</p>
+                            </div>
+                            {/* Carlos Ruiz */}
+                            <div className="bg-white rounded-lg shadow-lg p-6">
+                                <h4 className="text-xl font-semibold text-gray-800">Carlos Ruiz</h4>
+                                <p className="text-gray-600 mt-2">Correo: carlos.ruiz@example.com</p>
+                                <p className="text-gray-600 mt-1">Contraseña: securePass123</p>
+                                <p className="text-gray-500 mt-2">Tipo de usuario: Usuario</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Link de la presentación */}
+                    <div className="container bg-white rounded-lg shadow-lg p-6 mt-8">
+                        <a
+                            href="https://www.canva.com/design/DAGXmWA92MQ/em52NxdxJR6a0wj1_AzWuw/edit?utm_content=DAGXmWA92MQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+                            className="text-xl font-semibold text-blue-500 underline"
+                        >
+                            Link de la presentación (CANVA)
+                        </a>
                     </div>
                 </div>
             </div>
