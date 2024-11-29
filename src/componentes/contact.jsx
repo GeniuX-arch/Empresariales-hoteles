@@ -66,7 +66,7 @@ export const Contacto = () => {
                     </div>
                     <div className="container bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
                         <a href="https://www.canva.com/design/DAGXmWA92MQ/em52NxdxJR6a0wj1_AzWuw/edit?utm_content=DAGXmWA92MQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" className="text-xl font-semibold text-gray-800">Link de la presentación (CANVA)</a>
-
+                        <hr className="m-5">
                         <h3 className="font-bold text-gray-800 text-xl">Usuarios y Contraseñas</h3>
                         <code className="container p-5 bg-white">
                             {
