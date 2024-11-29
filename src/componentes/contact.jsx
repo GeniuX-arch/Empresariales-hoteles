@@ -69,29 +69,20 @@ export const Contacto = () => {
                         <hr className="m-5">
                         <h3 className="font-bold text-gray-800 text-xl">Usuarios y Contraseñas</h3>
                         <code className="container p-5 bg-white">
-                            {`
-                            {
-                                "id": "673a592828f1e16bcaef662a",
                                 "nombre": "Oscar Pérez",
                                 "correo": "oscar.perez@example.com",
                                 "contrasena": "pass1234",
                                 "tipoUsuario": "Administrador"
-                            },
-                            {
-                                "id": "674522826564af0161ee5f00",
+                                
                                 "nombre": "Sofía Ramírez",
                                 "correo": "sofia.ramirez@example.com",
                                 "contrasena": "ownerPass998",
                                 "tipoUsuario": "Propietario"
-                            },
-                            {
-                                "id": "674522826564af0161ee5efd",
+                                
                                 "nombre": "Carlos Ruiz",
                                 "correo": "carlos.ruiz@example.com",
                                 "contrasena": "securePass123",
                                 "tipoUsuario": "Usuario"
-                            }
-                            `}
                         </code>
                     </div>
                 </div>
