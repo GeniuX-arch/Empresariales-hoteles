@@ -69,6 +69,7 @@ export const Contacto = () => {
                         <hr className="m-5">
                         <h3 className="font-bold text-gray-800 text-xl">Usuarios y Contraseñas</h3>
                         <code className="container p-5 bg-white">
+                            {`
                             {
                                 "id": "673a592828f1e16bcaef662a",
                                 "nombre": "Oscar Pérez",
@@ -89,7 +90,8 @@ export const Contacto = () => {
                                 "correo": "carlos.ruiz@example.com",
                                 "contrasena": "securePass123",
                                 "tipoUsuario": "Usuario"
-                            },
+                            }
+                            `}
                         </code>
                     </div>
                 </div>
